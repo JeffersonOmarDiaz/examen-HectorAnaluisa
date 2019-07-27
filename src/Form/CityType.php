@@ -15,7 +15,7 @@ class CityType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('coutry', EntityType::class, [
+            ->add('country', EntityType::class, [
                 'class' => Country::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Seleccione uno...'

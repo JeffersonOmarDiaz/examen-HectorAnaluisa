@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Buy;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
@@ -102,4 +103,24 @@ class ProductController extends AbstractController
 
         return $this->redirectToRoute('product_index');
     }
+
+    /**
+     * @Route("/{id}", name="product_buy", methods={"POST"})
+     */
+    public function BuyP(Product $id,Request $request, Product $product): Response
+    {
+        if ($this->isCsrfTokenValid('buy'.$product->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $date = new \DateTime('@'.strtotime('now'));
+            $compra = new Buy();
+            $compra->setProduct($id);
+            $compra->setUser($this->getUser());
+            $compra->setDate($date);
+            $entityManager->persist($compra);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('product_index');
+    }
+
 }

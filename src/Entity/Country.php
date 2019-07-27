@@ -28,6 +28,8 @@ class Country
      */
     private $cities;
 
+
+
     public function __construct()
     {
         $this->cities = new ArrayCollection();
@@ -62,7 +64,7 @@ class Country
     {
         if (!$this->cities->contains($city)) {
             $this->cities[] = $city;
-            $city->setCoutry($this);
+            $city->setCountry($this);
         }
 
         return $this;
@@ -73,8 +75,8 @@ class Country
         if ($this->cities->contains($city)) {
             $this->cities->removeElement($city);
             // set the owning side to null (unless already changed)
-            if ($city->getCoutry() === $this) {
-                $city->setCoutry(null);
+            if ($city->getCountry() === $this) {
+                $city->setCountry(null);
             }
         }
 
